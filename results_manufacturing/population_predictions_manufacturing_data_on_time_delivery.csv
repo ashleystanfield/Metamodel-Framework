@@ -1,0 +1,11 @@
+scenario_id,arrival_rate,service_rate,wip_inventory,num_operations,setup_time,due_date_tightness,machine_age,maintenance_interval,technician_availability,supplier_lead_time,inventory_level,demand_variability,scenario_type,pred_linear_regression
+1,12,18,8,4,15,0.5,5,150,0.8,5,300,0.25,Current state baseline,0.835477068668034
+2,12,25,6,4,15,0.5,5,150,0.8,5,300,0.25,Capacity expansion (+39% service rate),0.63761428157846
+3,12,18,4,4,8,0.5,5,150,0.8,5,300,0.25,Lean manufacturing (reduced WIP/setup),0.851597793611918
+4,12,18,8,4,15,0.5,2,100,0.9,5,300,0.25,Preventive maintenance focus,0.832518807798468
+5,12,18,8,4,15,0.5,5,150,0.8,2,450,0.2,Supply chain optimization,0.835477068668034
+6,12,18,8,4,10,0.75,3,120,0.92,4,350,0.22,Express prioritization shift,0.755377727993477
+7,18,22,12,4,15,0.5,5,150,0.8,5,400,0.3,Volume increase (+50% arrival),1.00222394698178
+8,15,28,5,4,8,0.55,2,100,0.92,2,450,0.18,Full optimization (all improvements),0.69500683148132
+9,10,18,6,3,12,0.45,4,140,0.82,4,280,0.22,Simple products focus,0.775322435098817
+10,8,14,10,6,25,0.55,6,160,0.78,8,350,0.32,Complex products emphasis,0.723242707957112

@@ -1,0 +1,365 @@
+# =============================================================================
+# GENERALIZED METAMODEL CONFIGURATION FILE
+# =============================================================================
+# This file controls all aspects of metamodel training and evaluation.
+# Modify this file instead of the R code to customize your analysis.
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# PROJECT SETTINGS
+# -----------------------------------------------------------------------------
+project:
+  name: "CRC_Screening_Metamodels"
+  description: "Colorectal cancer screening intervention metamodels"
+  working_directory: "C:/Users/ashle/Metamodel_Generalized"
+  output_directory: "output"
+  log_file: "metamodel_log.txt"
+
+# -----------------------------------------------------------------------------
+# DATA CONFIGURATION
+# -----------------------------------------------------------------------------
+data:
+  # Input files - List all your data files here
+  # ORDER MATTERS for reproducibility! Must match original code order:
+  # outer(c("lhs_","kmeans_"), c("mailedfit","reminders"), paste0)
+  # Reads column-by-column: lhs_mailedfit, kmeans_mailedfit, lhs_reminders, kmeans_reminders
+  input_files:
+    # Mailedfit (lhs first, then kmeans - matching original)
+    - name: "lhs_mailedfit"
+      path: "C:/Users/ashle/Downloads/summary_lhs_mailedfit.csv"
+      enabled: true
+
+    - name: "kmeans_mailedfit"
+      path: "C:/Users/ashle/Downloads/summary_kmeans_mailedfit.csv"
+      enabled: true
+
+    # Reminders (lhs first, then kmeans - matching original)
+    - name: "lhs_reminders"
+      path: "C:/Users/ashle/Downloads/summary_lhs_reminders.csv"
+      enabled: true
+
+    - name: "kmeans_reminders"
+      path: "C:/Users/ashle/Downloads/summary_kmeans_reminders.csv"
+      enabled: true
+
+  # Column that identifies different person types
+  person_id_column: "person_idx"
+
+  # Number of person types (NULL = auto-detect)
+  n_persons: ~
+
+  # Handle missing data
+  missing_data:
+    strategy: "complete_cases"  # Options: "complete_cases", "impute", "drop_variable"
+    imputation_method: "median"  # If strategy = "impute"
+
+# -----------------------------------------------------------------------------
+# VARIABLE DEFINITIONS
+# -----------------------------------------------------------------------------
+variables:
+  # Predictor variables (independent variables, features)
+  predictors:
+    - "screen_before"
+    - "screen_at"
+    - "screen_after"
+    - "diag_before"
+    - "diag_at"
+    - "diag_after"
+    - "screen_before_colo"
+    - "screen_at_colo"
+    - "screen_after_colo"
+
+  # Outcome variables (dependent variables, targets)
+  # ORDER MATTERS for reproducibility! Must match original:
+  # cancer_after, cancer_death, life_years_lost, colo_during_int, num_fits, years_of_int_utd, cancer_averted
+  outcomes:
+    - "cancer_after"
+    - "cancer_death"
+    - "life_years_lost"
+    - "colo_during_int"
+    - "num_fits"
+    - "years_of_int_utd"
+    - "cancer_averted"
+
+  # Demographic variables (optional - for population weighting)
+  demographics:
+    - "gender"
+    - "race"
+    - "age_init"
+    - "ethincity"
+
+  # Optional: Map user column names to standard names
+  column_mapping:
+    enabled: false
+
+# -----------------------------------------------------------------------------
+# MODELING PARAMETERS
+# -----------------------------------------------------------------------------
+modeling:
+  # Random seed for reproducibility
+  random_seed: 42
+
+  # Train/test split ratio
+  train_test_split: 0.8
+
+  # Handle constant predictors
+  drop_constant_predictors: true
+
+  # Save trained models to disk
+  save_models: true
+
+  # Export predictions to CSV
+  export_predictions: true
+
+  # Use population weights (if available)
+  use_population_weights: false
+
+  # Cross-validation settings
+  cross_validation:
+    enabled: true
+    n_folds: 5
+
+  # Parallel processing
+  parallel:
+    enabled: false
+    n_cores: 4
+
+# -----------------------------------------------------------------------------
+# METAMODEL CONFIGURATION
+# -----------------------------------------------------------------------------
+metamodels:
+  # Linear Regression
+  linear_regression:
+    enabled: true
+    save_models: true
+    save_metrics: true
+
+  # Quadratic Regression
+  quadratic_regression:
+    enabled: true
+    include_interactions: true
+    tune_hyperparameters: false
+    save_models: true
+    save_metrics: true
+
+  # Cubic Regression
+  cubic_regression:
+    enabled: true
+    include_two_way_interactions: true
+    include_three_way_interactions: false
+    tune_hyperparameters: false
+    save_models: true
+    save_metrics: true
+
+  # Support Vector Regression
+  support_vector_regression:
+    enabled: true
+    kernel: "radial"  # Options: "radial", "linear", "polynomial"
+    tune_hyperparameters: true
+    tune_cost_grid: [0.1, 1, 10, 100]
+    tune_epsilon_grid: [0.01, 0.1, 0.5]
+    save_models: true
+    save_metrics: true
+
+  # Neural Network
+  neural_network:
+    enabled: true
+    hyperparameters:
+      size_grid: [1, 3, 5, 10]
+      decay_grid: [0, 0.0001, 0.001, 0.01]
+      max_iterations: 500
+      max_weights: 20000
+    preprocessing:
+      center: true
+      scale: true
+    save_models: true
+    save_metrics: true
+    save_grid_search: true
+
+  # Random Forest
+  random_forest:
+    enabled: true
+    hyperparameters:
+      mtry_grid: [2, 3, 4, 5, 6]
+      ntree: 500
+    save_models: true
+    save_metrics: true
+    save_individual_predictions: true
+
+# -----------------------------------------------------------------------------
+# PREDICTION SETTINGS
+# -----------------------------------------------------------------------------
+prediction:
+  # Scenario file for generating population predictions
+  scenario_file: ~  # Path to CSV with prediction scenarios
+
+  # Export predictions to CSV
+  export_predictions_csv: true
+
+# -----------------------------------------------------------------------------
+# ENSEMBLE SETTINGS
+# -----------------------------------------------------------------------------
+ensemble:
+  enabled: true
+
+  # Ensemble method: "simple_average", "weighted_average", "median", "stacking"
+  method: "simple_average"
+
+  # For weighted_average method
+  weighting_metric: "mean_test_r2"
+
+# -----------------------------------------------------------------------------
+# POPULATION WEIGHTING (Optional)
+# -----------------------------------------------------------------------------
+population:
+  # Use population weights for aggregation
+  use_weighting: false
+
+  # Weight source
+  weights:
+    source: "equal"  # Options: "census", "file", "equal"
+
+    # If source = "file", specify path
+    file_path: ~
+
+    # If source = "census", define demographic structure
+    demographics:
+      gender:
+        categories: ["male", "female"]
+        proportions: [0.48, 0.52]
+
+      race:
+        categories: ["white", "black", "other"]
+        proportions: [0.75, 0.13, 0.12]
+
+      age_brackets:
+        categories: ["45-49", "50-54", "55-59", "60-64", "65-69", "70-74"]
+        proportions: [0.20, 0.19, 0.18, 0.16, 0.15, 0.12]
+
+# -----------------------------------------------------------------------------
+# INTERVENTION CONFIGURATIONS (Optional)
+# -----------------------------------------------------------------------------
+interventions:
+  mailedfit:
+    enabled: true
+    type: "custom_function"
+    formula: "9.4103*x^3 - 7.6205*x^2 + 2.5342*x + 0.1506"
+    input_variable: "screen_before"
+    output_variable: "screen_at"
+    bounds: [0, 1]
+
+  reminders:
+    enabled: true
+    type: "piecewise"
+    segments:
+      - condition: "x <= 0.30"
+        formula: "0.8212*x + 0.0592"
+      - condition: "x > 0.30"
+        formula: "1.006*x"
+    input_variable: "screen_before"
+    output_variable: "screen_at"
+    bounds: [0, 1]
+
+  usualcare:
+    enabled: true
+    type: "identity"
+    description: "No intervention - baseline comparison"
+
+# -----------------------------------------------------------------------------
+# DECISION TREE CONFIGURATION
+# -----------------------------------------------------------------------------
+decision_tree:
+  enabled: true
+  n_simulations: 1000
+  target_outcome: "cancer_averted"
+  classification_method: "rpart"
+
+# -----------------------------------------------------------------------------
+# VISUALIZATION SETTINGS
+# -----------------------------------------------------------------------------
+visualizations:
+  enabled: true
+
+  plots:
+    r2_heatmap:
+      enabled: true
+      output_file: "r2_heatmap.png"
+      width: 12
+      height: 8
+
+    joy_plots:
+      enabled: true
+      output_file: "r2_distributions.png"
+
+    population_estimates:
+      enabled: true
+      output_file: "population_estimates.png"
+
+    decision_tree:
+      enabled: true
+      output_file: "decision_tree.png"
+
+# -----------------------------------------------------------------------------
+# OUTPUT SETTINGS
+# -----------------------------------------------------------------------------
+output:
+  # File naming convention
+  naming:
+    use_timestamps: false
+    prefix: "metamodel"
+
+  # What to save
+  save_models: true
+  save_metrics: true
+  save_predictions: true
+  save_constants_log: true
+
+  # Compression
+  compress_models: false
+
+# -----------------------------------------------------------------------------
+# COMPUTATIONAL METRICS
+# -----------------------------------------------------------------------------
+computational_metrics:
+  # Track time, CPU, and memory usage during training
+  enabled: true
+
+  # What to track
+  track_wall_time: true
+  track_cpu_time: true
+  track_memory: true
+
+  # Granularity: "step" (per metamodel type) or "model" (per individual model)
+  granularity: "step"
+
+  # Save metrics to CSV
+  save_to_csv: true
+
+  # Print summary at end of pipeline
+  print_summary: true
+
+# -----------------------------------------------------------------------------
+# LOGGING & REPORTING
+# -----------------------------------------------------------------------------
+logging:
+  verbose: true
+  progress_bars: true
+  log_to_file: true
+  log_level: "INFO"  # Options: "DEBUG", "INFO", "WARNING", "ERROR"
+
+# -----------------------------------------------------------------------------
+# VALIDATION SETTINGS
+# -----------------------------------------------------------------------------
+validation:
+  # Check data before running
+  validate_data: true
+  validate_config: true
+
+  # Warnings
+  warn_on_constant_predictors: true
+  warn_on_missing_data: true
+  warn_on_small_sample_size: true
+  minimum_sample_size: 10
+
+  # Skip outcomes that don't exist in a file
+  skip_missing_outcomes: true

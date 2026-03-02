@@ -1,0 +1,92 @@
+# Healthcare Comorbidity Example Configuration
+# Models health outcomes for 16 comorbidity profiles (all combinations of 4 chronic conditions)
+
+project:
+  name: "Healthcare_Comorbidity_Example"
+  working_directory: "."
+  output_directory: "results_healthcare"
+  log_file: "healthcare_example.log"
+
+data:
+  input_files:
+    - name: "healthcare_data"
+      path: "examples/healthcare/healthcare_data.csv"
+      enabled: true
+
+  person_id_column: "person_idx"
+
+  missing_data:
+    strategy: "complete_cases"
+
+variables:
+  predictors:
+    - "diabetes_intervention"
+    - "cardio_intervention"
+    - "mental_intervention"
+    - "pain_intervention"
+    - "medication_adherence"
+    - "visit_frequency"
+    - "lifestyle_score"
+
+  outcomes:
+    - "quality_of_life"
+    - "hospitalization_risk"
+    - "annual_cost"
+    - "mortality_risk"
+
+  column_mapping:
+    enabled: false
+
+modeling:
+  random_seed: 42
+  train_test_split: 0.75
+  drop_constant_predictors: true
+  save_models: true
+  export_predictions: true
+  use_population_weights: true
+
+metamodels:
+  linear_regression:
+    enabled: true
+
+  neural_network:
+    enabled: true
+    tune_hyperparameters: true
+    tune_size_grid: [3, 5, 10]
+    tune_decay_grid: [0.001, 0.01, 0.1]
+    size: 5
+    decay: 0.01
+    max_iterations: 300
+
+  random_forest:
+    enabled: true
+    tune_hyperparameters: true
+    tune_ntree_grid: [100, 300, 500]
+    tune_mtry_grid: [2, 3, 4]
+    ntree: 300
+    nodesize: 3
+
+population_weighting:
+  weights_file: "examples/population_weights/healthcare_weights.csv"
+  person_id_column: "person_idx"
+  weight_column: "population_proportion"
+
+prediction:
+  scenario_file: "examples/scenarios/healthcare_scenarios.csv"
+  export_predictions_csv: true
+
+ensemble:
+  enabled: true
+  method: "weighted_average"
+  weighting_metric: "mean_test_r2"
+
+visualizations:
+  enabled: true
+
+logging:
+  verbose: true
+  progress_bars: true
+  log_to_file: true
+
+validation:
+  minimum_sample_size: 4

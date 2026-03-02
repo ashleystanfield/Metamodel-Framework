@@ -1,0 +1,2 @@
+model_type,n_models,wall_time_sec,cpu_user_sec,cpu_system_sec,cpu_total_sec,memory_start_mb,memory_end_mb,memory_delta_mb,memory_peak_mb,timestamp_start,timestamp_end
+linear_regression,64,0.6007399559021,0.5600000000004,0.0299999999999727,0.590000000000373,757,757.6,0.600000000000023,886.2,2026-01-21T17:14:48.272393Z,2026-01-21T17:14:48.873133Z

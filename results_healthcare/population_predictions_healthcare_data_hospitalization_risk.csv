@@ -1,0 +1,11 @@
+scenario_id,diabetes_intervention,cardio_intervention,mental_intervention,pain_intervention,medication_adherence,visit_frequency,lifestyle_score,intervention_type,pred_linear_regression
+1,0.3,0.3,0.3,0.3,0.65,4,50,Baseline (current standard of care),0.110534635552361
+2,0.8,0.3,0.3,0.3,0.7,5,52,Enhanced diabetes management,0.161359224877661
+3,0.3,0.8,0.3,0.3,0.7,5,52,Cardiovascular focus,0.0949612076379289
+4,0.3,0.3,0.8,0.3,0.7,5,52,Mental health integration,0.0773106321978459
+5,0.3,0.3,0.3,0.8,0.7,5,52,Pain management program,0.0437119863840555
+6,0.5,0.5,0.5,0.5,0.9,6,55,High adherence support,0.0405675656300451
+7,0.4,0.4,0.4,0.4,0.75,4,75,Lifestyle intervention,0.0488202133254268
+8,0.8,0.8,0.8,0.8,0.85,8,70,Comprehensive care (all high),0.028603241724183
+9,0.6,0.7,0.5,0.5,0.8,6,60,Cardio-diabetes priority,0.0705765721634795
+10,0.5,0.5,0.7,0.7,0.75,5,55,Mental health + Pain focus,0.0481845338085508

@@ -1,0 +1,320 @@
+
+================================================================================
+  METAMODELING RUN: 2026-01-21 12:16:42.819885
+================================================================================
+✓ Random seed set to: 42
+✓ Working directory: C:/Users/ashle/Metamodel_Generalized
+
+================================================================================
+                              STEP 1: DATA LOADING                              
+================================================================================
+
+
+================================================================================
+                           DATA LOADING & PREPARATION                           
+================================================================================
+
+▶ Loading data files...
+  Loading: manufacturing_data... ✓ (160 rows, 18 columns)
+
+✓ Loaded 1 data file(s)
+
+--- Processing: manufacturing_data ---
+
+▶ Data Quality Check:
+  Dimensions: 160 rows × 18 columns
+  Person types: 16 unique values
+  Missing values: 0 (0.00%)
+  Predictors: 12/12 found ✓
+  Outcomes: 4/4 found ✓
+
+▶ Handling missing data (strategy: complete_cases)...
+  Final dataset: 160 rows
+
+✓ Data loading and preparation complete
+
+✓ Data loading complete (0.0 seconds)
+
+================================================================================
+                       STEP 2: VALIDATION & PREPROCESSING                       
+================================================================================
+
+
+--- Processing group: manufacturing_data ---
+
+Outcome: cycle_time
+
+▶ Preparing data for 16 person types (outcome: cycle_time)...
+
+  Persons with data: 16/16
+  Avg training samples per person: 7.0
+
+▶ Validating person datasets...
+  Valid datasets: 16/16 (100.0%)
+
+Outcome: throughput
+
+▶ Preparing data for 16 person types (outcome: throughput)...
+
+  Persons with data: 16/16
+  Avg training samples per person: 7.0
+
+▶ Validating person datasets...
+  Valid datasets: 16/16 (100.0%)
+
+Outcome: on_time_delivery
+
+▶ Preparing data for 16 person types (outcome: on_time_delivery)...
+
+  Persons with data: 16/16
+  Avg training samples per person: 7.0
+
+▶ Validating person datasets...
+  Valid datasets: 16/16 (100.0%)
+
+Outcome: unit_cost
+
+▶ Preparing data for 16 person types (outcome: unit_cost)...
+
+  Persons with data: 16/16
+  Avg training samples per person: 7.0
+
+▶ Validating person datasets...
+  Valid datasets: 16/16 (100.0%)
+
+✓ Validation & preprocessing complete (0.1 seconds)
+
+================================================================================
+                           STEP 3: METAMODEL TRAINING                           
+================================================================================
+
+Training 1 metamodel type(s):
+  • linear_regression
+▶ Loading population weights from: examples/population_weights/manufacturing_weights.csv
+  Loaded weights for 16 person types
+
+>>> Training LINEAR_REGRESSION <<<
+
+
+================================================================================
+                           LINEAR REGRESSION TRAINING                           
+================================================================================
+
+Training LR for 4 group-outcome combinations
+
+=== Training LR for manufacturing_data - cycle_time ===
+
+▶ Training Linear Regression models for 16 persons (outcome: cycle_time)...
+
+  Successfully trained: 16/16 models
+  Fallback models: 0
+  Avg training R²: 1.000
+  Avg training RMSE: 0.0000
+  Avg test R²: -23.314
+  ✓ Saved models to: lr_models_manufacturing_data_cycle_time.rds
+
+=== Training LR for manufacturing_data - throughput ===
+
+▶ Training Linear Regression models for 16 persons (outcome: throughput)...
+
+  Successfully trained: 16/16 models
+  Fallback models: 0
+  Avg training R²: 1.000
+  Avg training RMSE: 0.0000
+  Avg test R²: -5.400
+  ✓ Saved models to: lr_models_manufacturing_data_throughput.rds
+
+=== Training LR for manufacturing_data - on_time_delivery ===
+
+▶ Training Linear Regression models for 16 persons (outcome: on_time_delivery)...
+
+  Successfully trained: 16/16 models
+  Fallback models: 0
+  Avg training R²: 1.000
+  Avg training RMSE: 0.0000
+  Avg test R²: -13.114
+  ✓ Saved models to: lr_models_manufacturing_data_on_time_delivery.rds
+
+=== Training LR for manufacturing_data - unit_cost ===
+
+▶ Training Linear Regression models for 16 persons (outcome: unit_cost)...
+
+  Successfully trained: 16/16 models
+  Fallback models: 0
+  Avg training R²: 1.000
+  Avg training RMSE: 0.0000
+  Avg test R²: -10.956
+  ✓ Saved models to: lr_models_manufacturing_data_unit_cost.rds
+
+================================================================================
+                    LINEAR REGRESSION TRAINING COMPLETE                        
+================================================================================
+Total models trained: 64
+Successful models: 64 (100.0%)
+Fallback models: 0 (0.0%)
+================================================================================
+  ⏱ Time: 0.6 seconds | CPU: 0.6s | Memory: 1.2 MB (peak: 897.0 MB)
+
+✓ Metamodel training complete (1.5 seconds)
+
+================================================================================
+                         STEP 4: PREDICTION & ENSEMBLE                          
+================================================================================
+
+▶ Loading population weights from: examples/population_weights/manufacturing_weights.csv
+  Loaded weights for 16 person types
+
+▶ Loading prediction scenarios...
+  Loaded 10 scenarios
+
+
+================================================================================
+                          POPULATION-LEVEL PREDICTIONS                          
+================================================================================
+
+
+=== manufacturing_data_cycle_time ===
+
+▶ Comparing population predictions across 1 model types...
+  Predicting with linear_regression...
+▶ Generating population predictions for 10 scenarios...
+  |                                                                                         |                                                                                 |   0%  |                                                                                         |========                                                                         |  10%  |                                                                                         |================                                                                 |  20%  |                                                                                         |========================                                                         |  30%  |                                                                                         |================================                                                 |  40%  |                                                                                         |========================================                                         |  50%  |                                                                                         |=================================================                                |  60%  |                                                                                         |=========================================================                        |  70%  |                                                                                         |=================================================================                |  80%  |                                                                                         |=========================================================================        |  90%  |                                                                                         |=================================================================================| 100%
+✓ Generated 10 population predictions
+✓ Population prediction comparison complete
+✓ Exported population predictions to: results_manufacturing/population_predictions_manufacturing_data_cycle_time.csv
+
+=== manufacturing_data_throughput ===
+
+▶ Comparing population predictions across 1 model types...
+  Predicting with linear_regression...
+▶ Generating population predictions for 10 scenarios...
+  |                                                                                         |                                                                                 |   0%  |                                                                                         |========                                                                         |  10%  |                                                                                         |================                                                                 |  20%  |                                                                                         |========================                                                         |  30%  |                                                                                         |================================                                                 |  40%  |                                                                                         |========================================                                         |  50%  |                                                                                         |=================================================                                |  60%  |                                                                                         |=========================================================                        |  70%  |                                                                                         |=================================================================                |  80%  |                                                                                         |=========================================================================        |  90%  |                                                                                         |=================================================================================| 100%
+✓ Generated 10 population predictions
+✓ Population prediction comparison complete
+✓ Exported population predictions to: results_manufacturing/population_predictions_manufacturing_data_throughput.csv
+
+=== manufacturing_data_on_time_delivery ===
+
+▶ Comparing population predictions across 1 model types...
+  Predicting with linear_regression...
+▶ Generating population predictions for 10 scenarios...
+  |                                                                                         |                                                                                 |   0%  |                                                                                         |========                                                                         |  10%  |                                                                                         |================                                                                 |  20%  |                                                                                         |========================                                                         |  30%  |                                                                                         |================================                                                 |  40%  |                                                                                         |========================================                                         |  50%  |                                                                                         |=================================================                                |  60%  |                                                                                         |=========================================================                        |  70%  |                                                                                         |=================================================================                |  80%  |                                                                                         |=========================================================================        |  90%  |                                                                                         |=================================================================================| 100%
+✓ Generated 10 population predictions
+✓ Population prediction comparison complete
+✓ Exported population predictions to: results_manufacturing/population_predictions_manufacturing_data_on_time_delivery.csv
+
+=== manufacturing_data_unit_cost ===
+
+▶ Comparing population predictions across 1 model types...
+  Predicting with linear_regression...
+▶ Generating population predictions for 10 scenarios...
+  |                                                                                         |                                                                                 |   0%  |                                                                                         |========                                                                         |  10%  |                                                                                         |================                                                                 |  20%  |                                                                                         |========================                                                         |  30%  |                                                                                         |================================                                                 |  40%  |                                                                                         |========================================                                         |  50%  |                                                                                         |=================================================                                |  60%  |                                                                                         |=========================================================                        |  70%  |                                                                                         |=================================================================                |  80%  |                                                                                         |=========================================================================        |  90%  |                                                                                         |=================================================================================| 100%
+✓ Generated 10 population predictions
+✓ Population prediction comparison complete
+✓ Exported population predictions to: results_manufacturing/population_predictions_manufacturing_data_unit_cost.csv
+
+================================================================================
+                POPULATION PREDICTIONS COMPLETE                                
+================================================================================
+Generated predictions for 4 combinations
+================================================================================
+
+✓ Prediction & Ensemble complete (0.7 seconds)
+
+================================================================================
+                               STEP 5: EVALUATION                               
+================================================================================
+
+
+
+================================================================================
+                            MODEL EVALUATION REPORT                             
+================================================================================
+
+
+▶ Comparing model performance across all types...
+  Evaluating linear_regression...
+✓ Comparison complete: 64 model instances evaluated
+
+▶ Best models by combination:
+  manufacturing_data_cycle_time: linear_regression (test R² = -23.314)
+  manufacturing_data_on_time_delivery: linear_regression (test R² = -13.114)
+  manufacturing_data_throughput: linear_regression (test R² = -5.400)
+  manufacturing_data_unit_cost: linear_regression (test R² = -10.956)
+
+▶ Exporting evaluation results...
+✓ Exported model comparison to: results_manufacturing/model_comparison_detailed.csv
+✓ Exported model comparison to: results_manufacturing/model_comparison_aggregated.csv
+✓ Exported model comparison to: results_manufacturing/model_rankings.csv
+✓ Exported model comparison to: results_manufacturing/best_models.csv
+
+================================================================================
+                    MODEL EVALUATION COMPLETE                                  
+================================================================================
+
+▶ Top performing models:
+  1. manufacturing_data_cycle_time (linear_regression) - Test R² = -23.314
+  2. manufacturing_data_on_time_delivery (linear_regression) - Test R² = -13.114
+  3. manufacturing_data_throughput (linear_regression) - Test R² = -5.400
+  4. manufacturing_data_unit_cost (linear_regression) - Test R² = -10.956
+
+✓ Evaluation complete (0.1 seconds)
+
+================================================================================
+                             STEP 7: VISUALIZATION                              
+================================================================================
+
+
+▶ Generating visualization report...
+
+================================================================================
+                    CREATING VISUALIZATION REPORT                              
+================================================================================
+
+▶ Generating R² heatmap...
+
+▶ Creating R² heatmap...
+  ✓ Heatmap saved: results_manufacturing/visualizations/r2_heatmap.png
+▶ Generating R² distribution plots...
+
+▶ Creating R² distribution plots...
+  ✓ Distribution plot saved: results_manufacturing/visualizations/r2_distributions.png
+▶ Generating population prediction plot...
+
+▶ Creating population prediction plot...
+  ✓ Population prediction plot saved: results_manufacturing/visualizations/population_predictions.png
+▶ Generating model comparison plot...
+
+▶ Creating model comparison plot...
+  ✓ Model comparison plot saved: results_manufacturing/visualizations/model_comparison.png
+▶ Generating per-outcome performance plots...
+
+================================================================================
+                    VISUALIZATION REPORT COMPLETE                              
+================================================================================
+Plots saved to: results_manufacturing/visualizations
+Total plots created: 4
+
+  ✓ Generated 4 plots
+
+✓ Visualization complete (1.3 seconds)
+
+================================================================================
+                               PIPELINE COMPLETE                                
+================================================================================
+
+Total runtime: 3.6 seconds
+Start time: 2026-01-21 12:16:42
+End time: 2026-01-21 12:16:46
+
+--------------------------------------------------------------------------------
+                    COMPUTATIONAL METRICS BY MODEL TYPE                        
+--------------------------------------------------------------------------------
+
+  LINEAR_REGRESSION:
+    Models trained: 64
+    Wall time: 0.6 seconds
+    CPU time: 0.62 sec (user: 0.60, system: 0.02)
+    Memory: 1.2 MB used (peak: 897.0 MB)
+
+✓ Computational metrics saved: results_manufacturing/computational_metrics.csv
