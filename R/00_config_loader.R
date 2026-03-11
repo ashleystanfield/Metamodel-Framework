@@ -1,9 +1,7 @@
-################################################################################
-#                         CONFIG LOADER MODULE                                 #
-################################################################################
+
+#####CONFIG LOADER MODULE#####
 # This module handles loading and validating the configuration file
 # Supports YAML configuration files
-################################################################################
 
 library(yaml)
 
@@ -17,21 +15,14 @@ load_config <- function(config_path = "config.yaml") {
   if (!file.exists(config_path)) {
     stop(sprintf("Configuration file not found: %s", config_path))
   }
-
-  cat("================================================================================\n")
   cat("                    LOADING CONFIGURATION                                      \n")
-  cat("================================================================================\n")
-
   config <- yaml::read_yaml(config_path)
-
   cat(sprintf("✓ Loaded configuration from: %s\n", config_path))
   cat(sprintf("✓ Project: %s\n", config$project$name))
-
   # Validate configuration if enabled
   if (isTRUE(config$validation$validate_config)) {
     validate_config(config)
   }
-
   return(config)
 }
 
@@ -46,10 +37,7 @@ validate_config <- function(config) {
   errors <- character(0)
   warnings <- character(0)
 
-  # ============================================================================
-  # REQUIRED FIELDS
-  # ============================================================================
-
+  #####REQUIRED FIELDS#####
   # Project settings
   if (is.null(config$project$name)) {
     errors <- c(errors, "Missing: project$name")
@@ -77,10 +65,7 @@ validate_config <- function(config) {
     errors <- c(errors, "Missing: variables$outcomes (must specify at least one)")
   }
 
-  # ============================================================================
-  # FILE EXISTENCE
-  # ============================================================================
-
+  #####FILE EXISTENCE#####
   # Check working directory
   if (!dir.exists(config$project$working_directory)) {
     errors <- c(errors, sprintf("Working directory does not exist: %s",
@@ -103,10 +88,7 @@ validate_config <- function(config) {
     }
   }
 
-  # ============================================================================
-  # PARAMETER RANGES
-  # ============================================================================
-
+  #####PARAMETER RANGES#####
   # Train/test split
   split_ratio <- config$modeling$train_test_split
   if (!is.null(split_ratio)) {
@@ -129,10 +111,7 @@ validate_config <- function(config) {
     }
   }
 
-  # ============================================================================
-  # METAMODEL CHECKS
-  # ============================================================================
-
+  #####METAMODEL CHECKS#####
   # Check if at least one metamodel is enabled
   metamodels_enabled <- sapply(names(config$metamodels), function(mm) {
     isTRUE(config$metamodels[[mm]]$enabled)
@@ -142,10 +121,7 @@ validate_config <- function(config) {
     warnings <- c(warnings, "No metamodels enabled - nothing will be trained")
   }
 
-  # ============================================================================
-  # REPORT RESULTS
-  # ============================================================================
-
+  #####REPORT RESULTS#####
   if (length(errors) > 0) {
     cat("\n❌ CONFIGURATION VALIDATION FAILED\n\n")
     cat("Errors:\n")
@@ -218,9 +194,7 @@ get_enabled_metamodels <- function(config) {
 #' @param config Configuration list
 print_config_summary <- function(config) {
 
-  cat("\n================================================================================\n")
   cat("                    CONFIGURATION SUMMARY                                      \n")
-  cat("================================================================================\n\n")
 
   cat(sprintf("Project: %s\n", config$project$name))
   cat(sprintf("Working Directory: %s\n", config$project$working_directory))
