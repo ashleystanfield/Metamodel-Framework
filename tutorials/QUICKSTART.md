@@ -9,10 +9,10 @@ install.packages(c("data.table", "yaml", "nnet", "randomForest", "caret"))
 
 ## Fastest Path: Manufacturing Example
 
-### 1. Navigate to Project
+### 1. Navigate to Project (set to correct working directory)
 
 ```R
-setwd("C:/Users/ashle/Metamodel_Generalized")
+setwd("")
 ```
 
 ### 2. Load and Run
