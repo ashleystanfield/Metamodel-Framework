@@ -64,8 +64,8 @@ variables:
 ### Step 2: Run in R
 
 ```R
-# Set working directory to Metamodel_Generalized folder
-setwd("C:/Users/ashle/Metamodel_Generalized")
+# Set to your working directory to Metamodel_Generalized folder
+setwd("C:/Users/Metamodel_Generalized")
 
 # Load the system
 source("main.R")
