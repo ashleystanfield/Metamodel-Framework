@@ -73,7 +73,7 @@ Key relationships:
 ## Quick Start
 
 ```R
-setwd("C:/Users/ashle/Metamodel_Generalized")
+setwd("") #set to correct working directory with metamodel framework
 source("main.R")
 
 results <- run_metamodeling_pipeline(
