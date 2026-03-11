@@ -17,8 +17,8 @@ load_config <- function(config_path = "config.yaml") {
   }
   cat("                    LOADING CONFIGURATION                                      \n")
   config <- yaml::read_yaml(config_path)
-  cat(sprintf("✓ Loaded configuration from: %s\n", config_path))
-  cat(sprintf("✓ Project: %s\n", config$project$name))
+  cat(sprintf("Loaded configuration from: %s\n", config_path))
+  cat(sprintf("Project: %s\n", config$project$name))
   # Validate configuration if enabled
   if (isTRUE(config$validation$validate_config)) {
     validate_config(config)
@@ -32,7 +32,7 @@ load_config <- function(config_path = "config.yaml") {
 #' @return TRUE if valid, stops execution if invalid
 validate_config <- function(config) {
 
-  cat("\n▶ Validating configuration...\n")
+  cat("\n Validating configuration...\n")
 
   errors <- character(0)
   warnings <- character(0)
@@ -123,7 +123,7 @@ validate_config <- function(config) {
 
   #####REPORT RESULTS#####
   if (length(errors) > 0) {
-    cat("\n❌ CONFIGURATION VALIDATION FAILED\n\n")
+    cat("\n CONFIGURATION VALIDATION FAILED\n\n")
     cat("Errors:\n")
     for (err in errors) {
       cat(sprintf("  • %s\n", err))
@@ -132,7 +132,7 @@ validate_config <- function(config) {
   }
 
   if (length(warnings) > 0) {
-    cat("\n⚠ Configuration warnings:\n")
+    cat("\n Configuration warnings:\n")
     for (warn in warnings) {
       cat(sprintf("  • %s\n", warn))
     }
