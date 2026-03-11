@@ -9,9 +9,9 @@
 # PROJECT SETTINGS
 # -----------------------------------------------------------------------------
 project:
-  name: "CRC_Screening_Metamodels"
-  description: "Colorectal cancer screening intervention metamodels"
-  working_directory: "C:/Users/ashle/Metamodel_Generalized"
+  name: "Metamodel Framework"
+  description: "Individual Level Metamodel Framework for Simulation Outputs"
+  working_directory: "." #CHANGE TO YOUR WORKING DIRECTORY
   output_directory: "output"
   log_file: "metamodel_log.txt"
 
@@ -20,30 +20,25 @@ project:
 # -----------------------------------------------------------------------------
 data:
   # Input files - List all your data files here
-  # ORDER MATTERS for reproducibility! Must match original code order:
-  # outer(c("lhs_","kmeans_"), c("mailedfit","reminders"), paste0)
-  # Reads column-by-column: lhs_mailedfit, kmeans_mailedfit, lhs_reminders, kmeans_reminders
-  input_files:
-    # Mailedfit (lhs first, then kmeans - matching original)
-    - name: "lhs_mailedfit"
-      path: "C:/Users/ashle/Downloads/summary_lhs_mailedfit.csv"
+  input_files: 
+    - name: "" #CHANGE TO NAME OF INPUT FILE 1
+      path: "" #CHANGE TO PATH OF INPUT FILE 1
       enabled: true
 
-    - name: "kmeans_mailedfit"
-      path: "C:/Users/ashle/Downloads/summary_kmeans_mailedfit.csv"
+    - name: "" #CHANGE TO NAME OF INPUT FILE 2 (IF APPLICABLE, REMOVE IF ONLY ONE FILE)
+      path: "" #CHANGE TO NAME OF INPUT PATH 2 (IF APPLICABLE, REMOVE IF ONLY ONE FILE)
       enabled: true
 
-    # Reminders (lhs first, then kmeans - matching original)
-    - name: "lhs_reminders"
-      path: "C:/Users/ashle/Downloads/summary_lhs_reminders.csv"
+    - name: "" #CHANGE TO NAME OF INPUT FILE 3 (IF APPLICABLE, REMOVE IF ONLY ONE FILE)
+      path: "" #CHANGE TO NAME OF INPUT PATH 3 (IF APPLICABLE, REMOVE IF ONLY ONE FILE)
       enabled: true
 
-    - name: "kmeans_reminders"
-      path: "C:/Users/ashle/Downloads/summary_kmeans_reminders.csv"
+    - name: "" #CHANGE TO NAME OF INPUT FILE 4 (IF APPLICABLE, REMOVE IF ONLY ONE FILE)
+      path: "" #CHANGE TO NAME OF INPUT PATH 4 (IF APPLICABLE, REMOVE IF ONLY ONE FILE)
       enabled: true
 
   # Column that identifies different person types
-  person_id_column: "person_idx"
+  person_id_column: "" #CHANGE TO PERSON OR PRODUCT TYPE COLUMN
 
   # Number of person types (NULL = auto-detect)
   n_persons: ~
@@ -59,42 +54,36 @@ data:
 variables:
   # Predictor variables (independent variables, features)
   predictors:
-    - "screen_before"
-    - "screen_at"
-    - "screen_after"
-    - "diag_before"
-    - "diag_at"
-    - "diag_after"
-    - "screen_before_colo"
-    - "screen_at_colo"
-    - "screen_after_colo"
+    - "" #NAME OF PREDICTOR COLUMN 1 
+    - "" #NAME OF PREDICTOR COLUMN 2 (IF APPLICABLE, REMOVE IF NOT)
+    - "" #NAME OF PREDICTOR COLUMN 3 (IF APPLICABLE, REMOVE IF NOT)
+    - "" #NAME OF PREDICTOR COLUMN 4 (IF APPLICABLE, REMOVE IF NOT)
+    - "" #NAME OF PREDICTOR COLUMN 5 (IF APPLICABLE, REMOVE IF NOT)
+    - "" #NAME OF PREDICTOR COLUMN 6 (IF APPLICABLE, REMOVE IF NOT)
+    - "" #NAME OF PREDICTOR COLUMN 7 (IF APPLICABLE, REMOVE IF NOT)
+    - "" #NAME OF PREDICTOR COLUMN 8 (IF APPLICABLE, REMOVE IF NOT)
+    - "" #NAME OF PREDICTOR COLUMN 9 (IF APPLICABLE, REMOVE IF NOT)
 
-  # Outcome variables (dependent variables, targets)
-  # ORDER MATTERS for reproducibility! Must match original:
-  # cancer_after, cancer_death, life_years_lost, colo_during_int, num_fits, years_of_int_utd, cancer_averted
+  # Outcome variables (dependent variables, targets, can add more or less) 
   outcomes:
-    - "cancer_after"
-    - "cancer_death"
-    - "life_years_lost"
-    - "colo_during_int"
-    - "num_fits"
-    - "years_of_int_utd"
-    - "cancer_averted"
+    - "" #NAME OF OUTCOME COLUMN 1
+    - "" #NAME OF OUTCOME COLUMN 2 (IF APPLICABLE, REMOVE IF NOT)
+    - "" #NAME OF OUTCOME COLUMN 3 (IF APPLICABLE, REMOVE IF NOT)
+    - "" #NAME OF OUTCOME COLUMN 4 (IF APPLICABLE, REMOVE IF NOT)
+    - "" #NAME OF OUTCOME COLUMN 5 (IF APPLICABLE, REMOVE IF NOT)
+    - "" #NAME OF OUTCOME COLUMN 6 (IF APPLICABLE, REMOVE IF NOT)
 
   # Demographic variables (optional - for population weighting)
   demographics:
-    - "gender"
-    - "race"
-    - "age_init"
-    - "ethincity"
+    - "" #AGE (COLUMN IN FILES), FOR EXAMPLE
+    - "" #GENDER (COLUMN IN FILES), FOR EXAMPLE
+    - "" #RACE (COLUMN IN FILES), FOR EXAMPLE
 
   # Optional: Map user column names to standard names
   column_mapping:
     enabled: false
 
-# -----------------------------------------------------------------------------
-# MODELING PARAMETERS
-# -----------------------------------------------------------------------------
+#####MODELING PARAMETERS#####
 modeling:
   # Random seed for reproducibility
   random_seed: 42
@@ -124,10 +113,8 @@ modeling:
     enabled: false
     n_cores: 4
 
-# -----------------------------------------------------------------------------
-# METAMODEL CONFIGURATION
-# -----------------------------------------------------------------------------
-metamodels:
+#####METAMODEL CONFIGURATION#####
+metamodels: #make enabled false if not all metamodel types are of interest
   # Linear Regression
   linear_regression:
     enabled: true
@@ -186,9 +173,7 @@ metamodels:
     save_metrics: true
     save_individual_predictions: true
 
-# -----------------------------------------------------------------------------
-# PREDICTION SETTINGS
-# -----------------------------------------------------------------------------
+#####PREDICTION SETTINGS#####
 prediction:
   # Scenario file for generating population predictions
   scenario_file: ~  # Path to CSV with prediction scenarios
@@ -196,9 +181,7 @@ prediction:
   # Export predictions to CSV
   export_predictions_csv: true
 
-# -----------------------------------------------------------------------------
-# ENSEMBLE SETTINGS
-# -----------------------------------------------------------------------------
+#####AGGREGATION SETTINGS#####
 ensemble:
   enabled: true
 
@@ -208,9 +191,7 @@ ensemble:
   # For weighted_average method
   weighting_metric: "mean_test_r2"
 
-# -----------------------------------------------------------------------------
-# POPULATION WEIGHTING (Optional)
-# -----------------------------------------------------------------------------
+#####POPULATION WEIGHTING (Optional)#####
 population:
   # Use population weights for aggregation
   use_weighting: false
@@ -236,9 +217,7 @@ population:
         categories: ["45-49", "50-54", "55-59", "60-64", "65-69", "70-74"]
         proportions: [0.20, 0.19, 0.18, 0.16, 0.15, 0.12]
 
-# -----------------------------------------------------------------------------
-# INTERVENTION CONFIGURATIONS (Optional)
-# -----------------------------------------------------------------------------
+#####INTERVENTION CONFIGURATIONS (Optional, change to relevant problem, current setup for CRC problem)#####
 interventions:
   mailedfit:
     enabled: true
@@ -265,18 +244,14 @@ interventions:
     type: "identity"
     description: "No intervention - baseline comparison"
 
-# -----------------------------------------------------------------------------
-# DECISION TREE CONFIGURATION
-# -----------------------------------------------------------------------------
+#####DECISION TREE CONFIGURATION#####
 decision_tree:
   enabled: true
   n_simulations: 1000
   target_outcome: "cancer_averted"
   classification_method: "rpart"
 
-# -----------------------------------------------------------------------------
-# VISUALIZATION SETTINGS
-# -----------------------------------------------------------------------------
+#####VISUALIZATION SETTINGS#####
 visualizations:
   enabled: true
 
@@ -299,9 +274,7 @@ visualizations:
       enabled: true
       output_file: "decision_tree.png"
 
-# -----------------------------------------------------------------------------
-# OUTPUT SETTINGS
-# -----------------------------------------------------------------------------
+#####OUTPUT SETTINGS#####
 output:
   # File naming convention
   naming:
@@ -317,9 +290,7 @@ output:
   # Compression
   compress_models: false
 
-# -----------------------------------------------------------------------------
-# COMPUTATIONAL METRICS
-# -----------------------------------------------------------------------------
+#####COMPUTATIONAL METRICS#####
 computational_metrics:
   # Track time, CPU, and memory usage during training
   enabled: true
@@ -338,18 +309,14 @@ computational_metrics:
   # Print summary at end of pipeline
   print_summary: true
 
-# -----------------------------------------------------------------------------
-# LOGGING & REPORTING
-# -----------------------------------------------------------------------------
+#####LOGGING & REPORTING#####
 logging:
   verbose: true
   progress_bars: true
   log_to_file: true
   log_level: "INFO"  # Options: "DEBUG", "INFO", "WARNING", "ERROR"
 
-# -----------------------------------------------------------------------------
-# VALIDATION SETTINGS
-# -----------------------------------------------------------------------------
+#####VALIDATION SETTINGS#####
 validation:
   # Check data before running
   validate_data: true
