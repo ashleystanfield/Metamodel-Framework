@@ -34,10 +34,10 @@ load_all_data <- function(config) {
     tryCatch({
       data <- load_single_file(file_path, file_name, config)
       data_list[[file_name]] <- data
-      cat(sprintf("✓ (%d rows, %d columns)\n", nrow(data), ncol(data)))
+      cat(sprintf(" (%d rows, %d columns)\n", nrow(data), ncol(data)))
 
     }, error = function(e) {
-      cat(sprintf("✗ FAILED\n"))
+      cat(sprintf(" FAILED\n"))
       warning(sprintf("Failed to load %s: %s", file_name, e$message))
     })
   }
@@ -46,7 +46,7 @@ load_all_data <- function(config) {
     stop("No data files were successfully loaded")
   }
 
-  cat(sprintf("\n✓ Loaded %d data file(s)\n", length(data_list)))
+  cat(sprintf("\n Loaded %d data file(s)\n", length(data_list)))
 
   return(data_list)
 }
