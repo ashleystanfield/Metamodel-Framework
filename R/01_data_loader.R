@@ -1,9 +1,6 @@
-################################################################################
-#                         DATA LOADER MODULE                                   #
-################################################################################
+#####DATA LOADER MODULE#####
 # Generic data loading functions that work with any CSV structure
 # Handles column mapping, file validation, and data type detection
-################################################################################
 
 suppressPackageStartupMessages({
   library(data.table)
@@ -17,7 +14,7 @@ suppressPackageStartupMessages({
 #' @export
 load_all_data <- function(config) {
 
-  cat("▶ Loading data files...\n")
+  cat("Loading data files...\n")
 
   # Get enabled input files
   input_files <- get_enabled_input_files(config)
@@ -158,7 +155,7 @@ check_data_quality <- function(data, config) {
   predictors <- config$variables$predictors
   outcomes <- config$variables$outcomes
 
-  cat("\n▶ Data Quality Check:\n")
+  cat("\n Data Quality Check:\n")
 
   # Basic dimensions
   cat(sprintf("  Dimensions: %d rows × %d columns\n", nrow(data), ncol(data)))
@@ -257,7 +254,7 @@ handle_missing_data <- function(data, config) {
 
   original_nrow <- nrow(data)
 
-  cat(sprintf("\n▶ Handling missing data (strategy: %s)...\n", strategy))
+  cat(sprintf("\n Handling missing data (strategy: %s)...\n", strategy))
 
   data <- switch(strategy,
     "complete_cases" = {
